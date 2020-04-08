@@ -1,0 +1,66 @@
+[vagrant]
+192.168.33.12
+
+[vagrant:vars]
+vm=1
+deploy_env=vagrant
+project_namespace={{ project_name }}-{{ deploy_env }}
+user=vagrant
+project_path=/home/vagrant/dj-init-travis-test-web
+venv_path=/home/vagrant/venv
+django_requirements_file=requirements/development.txt
+django_settings="settings.development"
+use_letsencrypt=False
+pg_db=dj_init_travis_test
+pg_user=vagrant
+pg_password=vagrant
+domain_name=vagrant.dj_init_travis_test.com
+
+[dev]
+dev.dj_init_travis_test.com
+
+[dev:vars]
+vm=0
+deploy_env=dev
+user=ubuntu
+project_namespace={{ project_name }}-{{ deploy_env }}
+project_path=/home/ubuntu/{{ deploy_env }}/dj-init-travis-test-web
+venv_path={{ project_path }}/venv
+use_letsencrypt=True
+letsencrypt_email=backend+dj-init-travis-test@fueled.com
+django_requirements_file=requirements.txt
+django_settings="settings.production"
+domain_name=dev.dj_init_travis_test.com
+
+
+[qa]
+qa.dj_init_travis_test.com
+
+[qa:vars]
+vm=0
+deploy_env=qa
+user=ubuntu
+project_namespace={{ project_name }}-{{ deploy_env }}
+project_path=/home/ubuntu/{{ deploy_env }}/dj-init-travis-test-web
+venv_path={{ project_path }}/venv
+use_letsencrypt=True
+letsencrypt_email=backend+dj-init-travis-test@fueled.com
+django_requirements_file=requirements.txt
+django_settings="settings.production"
+domain_name=qa.dj_init_travis_test.com
+
+[production]
+dj_init_travis_test.com
+
+[production:vars]
+vm=0
+deploy_env=prod
+user=ubuntu
+project_namespace={{ project_name }}-{{ deploy_env }}
+project_path=/home/ubuntu/{{ deploy_env }}/dj-init-travis-test-web
+venv_path={{ project_path }}/venv
+use_letsencrypt=True
+letsencrypt_email=backend+dj-init-travis-test@fueled.com
+django_requirements_file=requirements.txt
+django_settings="settings.production"
+domain_name=dj_init_travis_test.com

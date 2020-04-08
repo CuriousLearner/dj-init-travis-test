@@ -1,0 +1,55 @@
+# For more information about the configurations used in this file, please
+# see the Travis CI documentation: https://docs.travis-ci.com
+
+language: python
+dist: xenial
+
+python:
+  - '3.7.3'
+
+node_js:
+  - "10"
+
+services:
+  - docker
+
+cache:
+  pip: true
+  directories:
+  - node_modules  # NPM packages
+
+services:
+  - docker
+
+env:
+  global:
+  - PGDATABASE=postgres
+  - PGHOST=localhost
+  - PGUSER=postgres
+  - PGPASS=''
+  - PGPORT=5432
+  - DATABASE_URL=postgres://${PGUSER}:${PGPASS}@${PGHOST}:${PGPORT}/${PGDATABASE}
+  - POSTGRES_IMAGE=postgres:11
+
+before_install:
+  - sudo service postgresql stop
+  - docker run --rm --name pg-docker -d -p ${PGPORT}:5432 --tmpfs /var/lib/postgresql/data:rw ${POSTGRES_IMAGE}
+  - docker ps
+
+before_cache:
+  - rm -f $HOME/.cache/pip/log/debug.log
+
+install:
+  - pip install -r requirements/development.txt
+  - npm install
+
+script:
+- flake8
+- npm run build
+- pytest --cov -v --tb=native
+- ansible-playbook -i provisioner/hosts provisioner/site.yml --syntax-check
+
+notifications:
+  email:
+    on_success: change  # [always|never|change]
+    on_failure: always  # [always|never|change]

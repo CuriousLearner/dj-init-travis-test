@@ -1,0 +1,53 @@
+# Core Stuff
+# -------------------------------------
+Django==2.2.10
+
+# Configuration
+# -------------------------------------
+argon2-cffi==19.1.0
+django-environ==0.4.5
+django-sites==0.10
+python-dotenv==0.10.3
+django-cors-headers==3.1.1
+
+
+
+# Extensions
+# -------------------------------------
+pytz==2019.1
+
+# Models
+# -------------------------------------
+psycopg2-binary==2.8.2
+
+Pillow==6.2.0
+django-extensions==2.1.9
+django-uuid-upload-path==1.0.0
+django-versatileimagefield==1.11
+
+# REST APIs
+# -------------------------------------
+djangorestframework==3.10.3
+django-rest-swagger==2.2.0
+
+# LOGGING
+# -------------------------------------
+django-log-request-id==1.4.0
+
+# Documentation
+# -------------------------------------
+mkdocs-material==4.4.0
+markdown-include==0.5.1
+
+# Raven is the Sentry client
+# --------------------------
+raven==6.10.0
+
+# Auth Stuff
+# -------------------------------------
+PyJWT==1.7.1
+django-mail-templated==2.6.5
+
+# WEBPACK
+# -------------------------------------
+django-webpack-loader==0.6.0

@@ -1,0 +1,7 @@
+---
+project_name: dj_init_travis_test
+project_repo_url: git@github.com:CuriousLearner/dj-init-travis-test-web.git
+project_repo_remote: origin
+repo_version: master
+pg_gis: False
+ansible_python_interpreter: /usr/bin/python3

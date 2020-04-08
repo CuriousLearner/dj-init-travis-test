@@ -1,0 +1,9 @@
+"{{ uwsgi_log_file }}" {
+  copytruncate
+  daily
+  rotate 5
+  compress
+  delaycompress
+  missingok
+  notifempty
+}

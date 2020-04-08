@@ -1,0 +1,59 @@
+---
+- name: Add an Apt signing key to validate packages from PostgreSQL Repo
+  apt_key:
+    url: https://www.postgresql.org/media/keys/ACCC4CF8.asc
+    state: present
+
+- name: Add to PostgreSQL.list
+  apt_repository:
+    repo: deb http://apt.postgresql.org/pub/repos/apt/ bionic-pgdg main
+    state: present
+
+- name: Install postgresql packages
+  apt:
+    pkg: ['postgresql-11', 'postgresql-contrib', 'python3-psycopg2']
+    state: present
+
+- name: Install postgis packages
+  apt:
+    pkg: "postgis-2.5"
+    state: present
+  when: pg_gis
+
+- name: setup database
+  become_user: postgres
+  postgresql_db:
+    db: "{{ pg_db }}"
+    encoding: 'UTF-8'
+    lc_collate: 'en_US.UTF-8'
+    lc_ctype: 'en_US.UTF-8'
+    template: 'template0'
+    state: present
+
+- name: add hstore
+  become_user: postgres
+  shell: psql {{ pg_db }} -c "CREATE EXTENSION IF NOT EXISTS hstore;"
+  when: pg_hstore
+
+- name: add postgis
+  become_user: postgres
+  shell: psql {{ pg_db }} -c "CREATE EXTENSION IF NOT EXISTS postgis;"
+  when: pg_gis
+
+- name: add postgis topology
+  become_user: postgres
+  shell: psql {{ pg_db }} -c "CREATE EXTENSION IF NOT EXISTS postgis_topology;"
+  when: pg_gis
+
+- name: grant access for database to user
+  become_user: postgres
+  postgresql_user:
+    db: "{{ pg_db }}"
+    user: "{{ pg_user }}"
+    password: "{{ pg_password }}"
+    role_attr_flags: "CREATEDB,SUPERUSER"
+    state: present
+    encrypted: yes
+
+- name: ensure postgres is running
+  service: name=postgresql state=started enabled=yes
