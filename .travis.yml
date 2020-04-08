@@ -27,7 +27,7 @@ env:
   - PGHOST=localhost
   - PGUSER=postgres
   - PGPASS=''
-  - PGPORT=5432
+  - PGPORT=5433
   - DATABASE_URL=postgres://${PGUSER}:${PGPASS}@${PGHOST}:${PGPORT}/${PGDATABASE}
 
 before_install:
