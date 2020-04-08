@@ -29,7 +29,6 @@ env:
   - PGPASS=''
   - PGPORT=5432
   - DATABASE_URL=postgres://${PGUSER}:${PGPASS}@${PGHOST}:${PGPORT}/${PGDATABASE}
-  - POSTGRES_IMAGE=postgres:11
 
 before_install:
   - sudo apt-get update
