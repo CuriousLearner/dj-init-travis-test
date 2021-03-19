@@ -27,7 +27,7 @@ django-versatileimagefield==1.11
 
 # REST APIs
 # -------------------------------------
-djangorestframework==3.10.3
+djangorestframework==3.11.2
 django-rest-swagger==2.2.0
 
 # LOGGING
