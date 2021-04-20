@@ -25,7 +25,7 @@ bump2version==0.5.11
 # Deployment and Tasks
 # -------------------------------------
 fabric3==1.14.post1
-ansible==2.5.15
+ansible==2.9.20
 # Code quality
 #--------------------------------------
 pre-commit==1.17.0
